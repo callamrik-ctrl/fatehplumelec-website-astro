@@ -1,0 +1,20 @@
+---
+const { title, description, canonical, schemas = [] } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <link rel="stylesheet" href="/styles.css" />
+  {schemas.map((schema) => <script type="application/ld+json" set:html={schema} />)}
+</head>
+<body>
+  <slot />
+  <script src="/script.js"></script>
+</body>
+</html>
+
