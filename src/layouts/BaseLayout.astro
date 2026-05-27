@@ -1,5 +1,8 @@
 ---
 const { title, description, canonical, schemas = [] } = Astro.props;
+const schemaHtml = schemas
+  .map((schema) => `<script type="application/ld+json">${schema.replace(/<\/script/gi, "<\\/script")}</script>`)
+  .join("\n");
 ---
 <!doctype html>
 <html lang="en">
@@ -10,11 +13,10 @@ const { title, description, canonical, schemas = [] } = Astro.props;
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
   <link rel="stylesheet" href="/styles.css" />
-  {schemas.map((schema) => <script type="application/ld+json" set:html={schema} />)}
+  <Fragment set:html={schemaHtml} />
 </head>
 <body>
   <slot />
   <script src="/script.js"></script>
 </body>
 </html>
-
